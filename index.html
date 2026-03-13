@@ -3,32 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>สรุปเปรียบเทียบประกันภัยสินค้า & AI Advisor</title>
+    <title>AI ผู้ช่วยแนะนำประกันภัยสินค้า</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Prompt', sans-serif;
-            background-color: #f3f4f6;
+            background-color: #f8fafc;
         }
-        .table-shadow {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
         }
-        .custom-scrollbar::-webkit-scrollbar {
-            height: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8; 
-        }
-        
         /* Loading Animation */
         .typing-indicator span {
             display: inline-block;
@@ -47,232 +32,66 @@
         }
     </style>
 </head>
-<body class="p-4 md:p-8 flex flex-col items-center min-h-screen">
+<body class="p-4 md:p-8 flex flex-col items-center justify-center min-h-screen">
 
-    <div class="max-w-6xl w-full flex flex-col gap-6">
-        
+    <div class="max-w-3xl w-full">
         <!-- Header -->
-        <div class="bg-white rounded-2xl table-shadow overflow-hidden border border-gray-100">
-            <div class="bg-gradient-to-r from-blue-700 to-indigo-800 p-8 text-center">
-                <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">📊 สรุปเปรียบเทียบประกันภัยสินค้า</h1>
-                <p class="text-blue-100 text-sm md:text-base">ข้อมูลเปรียบเทียบจุดเด่นและข้อจำกัดของแต่ละบริษัทประกัน (ฉบับเข้าใจง่าย)</p>
-            </div>
+        <div class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-3">✨ AI ผู้ช่วยเลือกประกันภัยสินค้า</h1>
+            <p class="text-gray-500">สอบถามเงื่อนไข แจ้งประเภทสินค้า และจุดหมายปลายทางของคุณ</p>
         </div>
 
-        <!-- ✨ AI Advisor Section (Powered by Gemini) -->
-        <div class="bg-white rounded-2xl p-6 table-shadow border border-indigo-100 relative overflow-hidden">
-            <!-- Decorative background blob -->
-            <div class="absolute -top-16 -right-16 w-32 h-32 bg-indigo-500 rounded-full mix-blend-multiply filter blur-2xl opacity-20"></div>
-            <div class="absolute -bottom-16 -left-16 w-32 h-32 bg-purple-500 rounded-full mix-blend-multiply filter blur-2xl opacity-20"></div>
-
+        <!-- ✨ AI Advisor Section -->
+        <div class="bg-white rounded-2xl p-6 md:p-8 card-shadow border border-gray-100 relative overflow-hidden">
+            <!-- Decorative background -->
+            <div class="absolute top-0 right-0 w-40 h-40 bg-indigo-50 rounded-full mix-blend-multiply filter blur-3xl opacity-50 transform translate-x-1/2 -translate-y-1/2"></div>
+            
             <div class="relative z-10">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 rounded-lg text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"></path><path d="m14 7 3 3"></path><path d="M5 6v4"></path><path d="M19 14v4"></path><path d="M10 2v2"></path><path d="M7 8H3"></path><path d="M21 16h-4"></path><path d="M11 3H9"></path></svg>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-gray-800">ผู้ช่วยอัจฉริยะ (AI Advisor)</h2>
-                        <p class="text-xs text-gray-500">พิมพ์บอกความต้องการ แล้วให้ AI ช่วยเลือกบริษัทที่คุ้มค่าที่สุด</p>
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex-grow">
-                        <textarea id="userInput" rows="2" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block p-3 resize-none transition-all" placeholder="ตัวอย่าง: ต้องการส่งอาหารทะเลสดแช่แข็ง มูลค่า 5 แสนบาท จากกรุงเทพไปมาเลเซีย บริษัทไหนดี?"></textarea>
-                        <p id="errorMsg" class="text-red-500 text-xs mt-2 hidden">กรุณากรอกข้อมูลสินค้าหรือเส้นทางที่คุณต้องการขนส่งครับ</p>
-                    </div>
-                    <div class="flex flex-col justify-end">
-                        <button id="aiButton" onclick="analyzeWithAI()" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap group">
-                            <span class="text-lg group-hover:rotate-12 transition-transform">✨</span> 
-                            ให้ AI ช่วยวิเคราะห์
-                        </button>
-                    </div>
+                <div class="flex flex-col gap-4">
+                    <label for="userInput" class="font-semibold text-gray-700">คุณต้องการขนส่งอะไร ไปที่ไหน?</label>
+                    <textarea id="userInput" rows="3" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-base rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block p-4 resize-none transition-all shadow-sm" placeholder="ตัวอย่าง: ต้องการส่งอาหารทะเลสดแช่แข็ง มูลค่า 5 แสนบาท จากกรุงเทพไปมาเลเซีย บริษัทไหนดี?"></textarea>
+                    <p id="errorMsg" class="text-red-500 text-sm hidden">กรุณากรอกข้อมูลสินค้าหรือเส้นทางที่คุณต้องการขนส่งก่อนครับ</p>
+                    
+                    <button id="aiButton" onclick="analyzeWithAI()" class="w-full md:w-auto self-end bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-3 px-8 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                        <span>ถาม AI ผู้ช่วย</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                    </button>
                 </div>
 
                 <!-- AI Response Area -->
-                <div id="aiResponseContainer" class="mt-6 hidden">
+                <div id="aiResponseContainer" class="mt-8 hidden border-t border-gray-100 pt-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="bg-indigo-100 p-2 rounded-full text-indigo-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"></path><path d="m14 7 3 3"></path><path d="M5 6v4"></path><path d="M19 14v4"></path><path d="M10 2v2"></path><path d="M7 8H3"></path><path d="M21 16h-4"></path><path d="M11 3H9"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-gray-800">คำแนะนำจาก AI</h3>
+                    </div>
+                    
                     <div class="bg-indigo-50/50 rounded-xl p-5 border border-indigo-100">
                         <!-- Loading State -->
                         <div id="aiLoading" class="flex items-center gap-3 text-indigo-600 font-medium hidden">
                             <div class="typing-indicator">
                                 <span></span><span></span><span></span>
                             </div>
-                            กำลังประมวลผลเงื่อนไขกรมธรรม์ที่ดีที่สุด...
+                            กำลังวิเคราะห์ข้อมูล...
                         </div>
                         
                         <!-- Result State -->
-                        <div id="aiResult" class="text-gray-700 text-sm leading-relaxed prose prose-indigo max-w-none">
+                        <div id="aiResult" class="text-gray-700 text-sm md:text-base leading-relaxed prose prose-indigo max-w-none">
                             <!-- AI text will be injected here -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Existing Table Container (Responsive) -->
-        <div class="bg-white rounded-2xl table-shadow overflow-hidden border border-gray-100">
-            <div class="overflow-x-auto custom-scrollbar">
-                <table class="w-full min-w-[900px] border-collapse text-left">
-                    <thead>
-                        <tr class="bg-gray-50 border-b border-gray-200">
-                            <th class="p-5 text-gray-700 font-bold w-1/5 text-lg">หัวข้อเปรียบเทียบ</th>
-                            <th class="p-5 w-1/5">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-4 h-4 rounded-full bg-green-500"></div>
-                                    <span class="text-xl font-bold text-green-700">วิริยะ</span>
-                                </div>
-                            </th>
-                            <th class="p-5 w-1/5 border-l border-gray-100">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-4 h-4 rounded-full bg-blue-500"></div>
-                                    <span class="text-xl font-bold text-blue-700">กรุงเทพ</span>
-                                </div>
-                            </th>
-                            <th class="p-5 w-1/5 border-l border-gray-100">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-4 h-4 rounded-full bg-red-500"></div>
-                                    <span class="text-xl font-bold text-red-700">เออร์โก (ERGO)</span>
-                                </div>
-                            </th>
-                            <th class="p-5 w-1/5 border-l border-gray-100">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-4 h-4 rounded-full bg-purple-500"></div>
-                                    <span class="text-xl font-bold text-purple-700">MSIG</span>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        
-                        <!-- Row 1 -->
-                        <tr class="hover:bg-blue-50/30 transition-colors">
-                            <td class="p-5 bg-gray-50/50">
-                                <div class="flex flex-col">
-                                    <span class="font-semibold text-gray-800 mb-1">📦 การแบ่งกลุ่มสินค้า</span>
-                                    <span class="text-xs text-gray-500">ความครอบคลุมของประเภทสินค้า</span>
-                                </div>
-                            </td>
-                            <td class="p-5">
-                                <span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold mb-2">7 กลุ่มย่อย</span>
-                                <p class="text-sm text-gray-600">ครอบคลุมสินค้าเฉพาะทางมากที่สุด</p>
-                            </td>
-                            <td class="p-5 border-l border-gray-100">
-                                <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-2">5 กลุ่มย่อย</span>
-                                <p class="text-sm text-gray-600">มีแบ่งกลุ่มสินค้าย่อยและพลัส (+)</p>
-                            </td>
-                            <td class="p-5 border-l border-gray-100">
-                                <span class="inline-block px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-semibold mb-2">3 กลุ่มย่อย</span>
-                                <p class="text-sm text-gray-600">เน้นของใช้แล้วและสินค้าทั่วไป</p>
-                            </td>
-                            <td class="p-5 border-l border-gray-100">
-                                <span class="inline-block px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-semibold mb-2">กลุ่มเบ็ดเตล็ด</span>
-                                <p class="text-sm text-gray-600">เน้นสินค้าทั่วไปเป็นหลัก</p>
-                            </td>
-                        </tr>
-
-                        <!-- Row 2 -->
-                        <tr class="hover:bg-blue-50/30 transition-colors">
-                            <td class="p-5 bg-gray-50/50">
-                                <div class="flex flex-col">
-                                    <span class="font-semibold text-gray-800 mb-1">🚨 การลักทรัพย์</span>
-                                    <span class="text-xs text-gray-500">กรณีมีร่องรอยการงัดแงะ</span>
-                                </div>
-                            </td>
-                            <td class="p-5 bg-green-50/30">
-                                <p class="text-sm font-semibold text-green-700">✅ จ่ายตามความเสียหายจริง</p>
-                                <p class="text-xs text-gray-500 mt-1">(ดีที่สุด ไม่มีเพดานจำกัด)</p>
-                            </td>
-                            <td class="p-5 border-l border-gray-100">
-                                <p class="text-sm text-gray-700">จ่ายตามจริง สูงสุดไม่เกิน</p>
-                                <p class="text-base font-bold text-blue-600 mt-1">200,000 บาท</p>
-                            </td>
-                            <td class="p-5 border-l border-gray-100">
-                                <p class="text-sm text-gray-700">จ่ายตามจริง สูงสุดไม่เกิน</p>
-                                <p class="text-base font-bold text-red-600 mt-1">50,000 บาท</p>
-                            </td>
-                            <td class="p-5 border-l border-gray-100">
-                                <ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
-                                    <li>ทุน <4 แสน: <span class="font-semibold text-purple-600">ไม่เกิน 20,000</span></li>
-                                    <li>ทุน >5 แสน: <span class="font-semibold text-purple-600">ไม่เกิน 50,000</span></li>
-                                </ul>
-                            </td>
-                        </tr>
-
-                        <!-- Row 3 -->
-                        <tr class="hover:bg-blue-50/30 transition-colors">
-                            <td class="p-5 bg-gray-50/50">
-                                <div class="flex flex-col">
-                                    <span class="font-semibold text-gray-800 mb-1">🗺️ ขยายอาณาเขต</span>
-                                    <span class="text-xs text-gray-500">ฟรี (ไม่ต้องซื้อเพิ่ม)</span>
-                                </div>
-                            </td>
-                            <td class="p-5">
-                                <ul class="text-sm text-gray-600 space-y-1">
-                                    <li><span class="font-semibold text-gray-800">มาเลเซีย</span> (≤ 50 กม.)</li>
-                                    <li><span class="font-semibold text-gray-800">ลาว,พม่า,กัมพูชา</span> (≤ 20 กม.)</li>
-                                </ul>
-                            </td>
-                            <td class="p-5 border-l border-gray-100 flex flex-col items-center justify-center text-center h-full text-gray-400">
-                                <span class="text-2xl mb-1">❌</span>
-                                <span class="text-sm font-medium">ไม่คุ้มครอง</span>
-                            </td>
-                            <td class="p-5 border-l border-gray-100 bg-red-50/30">
-                                <p class="text-sm font-semibold text-red-700 mb-1">✅ คุ้มครองกว้างที่สุด</p>
-                                <p class="text-xs text-gray-600">มาเลเซีย, จีน, พม่า, ลาว, กัมพูชา</p>
-                                <p class="text-xs font-bold mt-1 bg-red-100 inline-block px-2 py-1 rounded text-red-800">(จำกัดระยะทาง 100 กม.)</p>
-                            </td>
-                            <td class="p-5 border-l border-gray-100 flex flex-col items-center justify-center text-center h-full text-gray-400">
-                                <span class="text-2xl mb-1">❌</span>
-                                <span class="text-sm font-medium">ไม่คุ้มครอง</span>
-                            </td>
-                        </tr>
-
-                        <!-- Row 4 -->
-                        <tr class="hover:bg-blue-50/30 transition-colors">
-                            <td class="p-5 bg-gray-50/50">
-                                <div class="flex flex-col">
-                                    <span class="font-semibold text-gray-800 mb-1">🚚 ตู้คอนเทนเนอร์</span>
-                                    <span class="text-xs text-gray-500">ความรับผิดต่อตู้ของผู้อื่น</span>
-                                </div>
-                            </td>
-                            <td class="p-5">
-                                <p class="text-sm text-gray-700 mb-1">สูงสุด <span class="font-bold text-green-700 text-base">100,000 บ.</span></p>
-                                <p class="text-[11px] text-gray-500 leading-tight">มีหักค่าเสียหายส่วนแรก (Deductible):<br>ตู้แห้ง 10% / ตู้เย็น 20%<br>(ขั้นต่ำ 20,000 บาท)</p>
-                            </td>
-                            <td class="p-5 border-l border-gray-100">
-                                <p class="text-sm text-gray-700 mb-2">จ่ายตามจริง อิงตามทุนประกัน</p>
-                                <ul class="text-xs text-gray-600 space-y-1 list-disc pl-4">
-                                    <li>ทุน 1-2 แสน: <span class="font-semibold">ไม่เกิน 20,000</span></li>
-                                    <li>ทุน 3 แสน+: <span class="font-semibold">ไม่เกิน 50,000</span></li>
-                                </ul>
-                            </td>
-                            <td class="p-5 border-l border-gray-100">
-                                <p class="text-sm text-gray-700">สูงสุดไม่เกิน</p>
-                                <p class="text-base font-bold text-red-600 mt-1">100,000 บาท</p>
-                            </td>
-                            <td class="p-5 border-l border-gray-100">
-                                <p class="text-sm text-gray-500 italic">อิงตามเงื่อนไขหน้าตารางกรมธรรม์</p>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- Footer Note -->
-            <div class="bg-gray-50 p-4 border-t border-gray-200 text-xs text-gray-500 flex justify-between items-center">
-                <p>* ข้อมูลอ้างอิงจากตารางเปรียบเทียบเบื้องต้น โปรดตรวจสอบเงื่อนไขกรมธรรม์ฉบับเต็มของแต่ละบริษัทอีกครั้ง</p>
-            </div>
-        </div>
     </div>
 
     <!-- Application Logic -->
     <script>
-        // API Configuration (Required for environment)
+        // 1. นำ API Key มาใส่ตรงนี้ (ในเครื่องหมายคำพูด)
         const apiKey = "AIzaSyBVE9T3SuiVVBoRdY9Po2yuaept-_UlcCQ"; 
-
         
-        // System prompt containing table data and instructions
+        // ข้อมูลความรู้พื้นฐานให้ AI
         const systemPrompt = `
         คุณคือผู้เชี่ยวชาญด้านการประกันภัยสินค้าขนส่ง (Cargo Insurance) ในประเทศไทย 
         หน้าที่ของคุณคือการให้คำแนะนำว่าลูกค้าควรเลือกบริษัทประกันภัยใดจาก 4 บริษัทนี้ (วิริยะ, กรุงเทพ, เออร์โก, MSIG) 
@@ -285,23 +104,27 @@
         4. MSIG: แบ่งเป็นกลุ่มเบ็ดเตล็ด, ลักทรัพย์จ่ายสูงสุด 20,000 - 50,000 บ. (ตามทุนประกัน), ไม่คุ้มครองการขนส่งข้ามแดน
 
         คำแนะนำการตอบกลับ:
-        1. ตอบเป็นภาษาไทยด้วยน้ำเสียงที่เป็นมิตร เป็นมืออาชีพ และกระชับเข้าใจง่าย
-        2. แนะนำบริษัทที่เหมาะสมที่สุด 1-2 อันดับแรก พร้อมอธิบายเหตุผลสั้นๆ ว่าทำไมถึงตอบโจทย์ลูกค้า
-        3. หากมีความเสี่ยงที่ควรระวังตามเงื่อนไข (เช่น ทุนประกันน้อยเกินไป หรือขนส่งเกินระยะทาง) ให้แจ้งเตือนด้วย
-        4. จัดรูปแบบผลลัพธ์ด้วย HTML พื้นฐานเท่านั้น (ห้ามใช้ Markdown) อนุญาตให้ใช้แท็ก <b>, <br>, <ul>, <li>, <p>
+        1. ตอบเป็นภาษาไทยด้วยน้ำเสียงที่เป็นมิตร เป็นมืออาชีพ
+        2. แนะนำบริษัทที่เหมาะสมที่สุด 1-2 อันดับแรก พร้อมอธิบายเหตุผล
+        3. จัดรูปแบบผลลัพธ์ด้วย HTML พื้นฐานเท่านั้น อนุญาตให้ใช้แท็ก <b>, <br>, <ul>, <li>, <p>
         `;
 
-        // Function to handle retries for robustness
-        async function fetchWithRetry(url, options, retries = 5, backoff = 1000) {
+        async function fetchWithRetry(url, options, retries = 3, backoff = 1000) {
             for (let i = 0; i < retries; i++) {
                 try {
                     const response = await fetch(url, options);
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    return await response.json();
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        // ดึงข้อความ Error จาก API มาแสดงถ้ามี
+                        const errorMsg = data.error && data.error.message ? data.error.message : `HTTP error: ${response.status}`;
+                        throw new Error(errorMsg);
+                    }
+                    return data;
                 } catch (error) {
                     if (i === retries - 1) throw error;
                     await new Promise(r => setTimeout(r, backoff));
-                    backoff *= 2; // Exponential backoff
+                    backoff *= 2; 
                 }
             }
         }
@@ -314,7 +137,6 @@
             const aiResult = document.getElementById('aiResult');
             const button = document.getElementById('aiButton');
 
-            // Validation
             if (!userInput) {
                 errorMsg.classList.remove('hidden');
                 document.getElementById('userInput').focus();
@@ -322,7 +144,6 @@
             }
             errorMsg.classList.add('hidden');
 
-            // UI State: Loading
             button.disabled = true;
             button.classList.add('opacity-70', 'cursor-not-allowed');
             aiResponseContainer.classList.remove('hidden');
@@ -330,26 +151,30 @@
             aiResult.innerHTML = '';
             aiResult.classList.add('hidden');
 
-            // API Payload construction
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+            // ตรวจสอบว่าใส่ API Key หรือยัง
+            if (!apiKey || apiKey.trim() === "") {
+                aiLoading.classList.add('hidden');
+                aiResult.innerHTML = '<p class="text-red-500"><b>⚠️ ยังไม่ได้ใส่ API Key:</b> กรุณานำ API Key ของคุณมาใส่ในโค้ดบรรทัดที่ 97 ก่อนครับ</p>';
+                aiResult.classList.remove('hidden');
+                button.disabled = false;
+                button.classList.remove('opacity-70', 'cursor-not-allowed');
+                return;
+            }
+
+            // ใช้อัปเดตเป็นโมเดลที่เสถียรที่สุด (gemini-1.5-flash)
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             const payload = {
-                contents: [{
-                    parts: [{ text: `ลูกค้าต้องการขนส่ง: "${userInput}" กรุณาแนะนำประกันที่เหมาะสมที่สุด` }]
-                }],
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                }
+                contents: [{ parts: [{ text: `ลูกค้าต้องการขนส่ง: "${userInput}" กรุณาแนะนำประกันที่เหมาะสมที่สุด` }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
             };
 
             try {
-                // Call Gemini API
                 const result = await fetchWithRetry(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
-                // Extract Text
                 const aiResponseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
                 
                 if (aiResponseText) {
@@ -359,10 +184,20 @@
                 }
 
             } catch (error) {
-                console.error("Gemini API Error:", error);
-                aiResult.innerHTML = '<p class="text-red-500"><b>เกิดข้อผิดพลาดในการเชื่อมต่อ</b><br>โปรดตรวจสอบการตั้งค่า API หรือลองใหม่อีกครั้งในภายหลัง</p>';
+                console.error("Gemini API Error details:", error);
+                
+                let errorDesc = error.message;
+                // ช่วยแปลข้อความ Error ภาษาอังกฤษให้เข้าใจง่ายขึ้น
+                if (error.message.includes("API key not valid")) {
+                    errorDesc = "API Key ไม่ถูกต้อง กรุณาตรวจสอบการคัดลอกอีกครั้ง";
+                } else if (error.message.includes("API key expired")) {
+                     errorDesc = "API Key หมดอายุ หรือถูกยกเลิกไปแล้ว";
+                } else if (error.message.includes("API keys are restricted")) {
+                     errorDesc = "API Key ถูกจำกัดโดเมนไว้ (Website Restrictions) และเว็บไซต์ปัจจุบันนี้ไม่ได้รับอนุญาตให้ใช้งาน";
+                }
+                
+                aiResult.innerHTML = `<div class="bg-red-50 p-4 rounded text-red-700"><b>เกิดข้อผิดพลาดจากระบบ API:</b><br><span class="text-sm">${errorDesc}</span><br><br><span class="text-xs text-gray-500">แนะนำให้ลองปรับ Application restrictions เป็น None ชั่วคราวในหน้า Google Cloud Console เพื่อทดสอบว่า Key ใช้งานได้ปกติหรือไม่</span></div>`;
             } finally {
-                // UI State: Reset
                 button.disabled = false;
                 button.classList.remove('opacity-70', 'cursor-not-allowed');
                 aiLoading.classList.add('hidden');
