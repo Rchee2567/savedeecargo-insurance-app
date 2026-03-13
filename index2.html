@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI ผู้ช่วยแนะนำประกันภัยสินค้า</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #f8fafc;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        /* Loading Animation */
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #4f46e5;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out both;
+            margin: 0 2px;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 flex flex-col items-center justify-center min-h-screen">
+
+    <div class="max-w-3xl w-full">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-3">✨ AI ผู้ช่วยเลือกประกันภัยสินค้า</h1>
+            <p class="text-gray-500">สอบถามเงื่อนไข แจ้งประเภทสินค้า และจุดหมายปลายทางของคุณ</p>
+        </div>
+
+        <!-- ✨ AI Advisor Section -->
+        <div class="bg-white rounded-2xl p-6 md:p-8 card-shadow border border-gray-100 relative overflow-hidden">
+            <!-- Decorative background -->
+            <div class="absolute top-0 right-0 w-40 h-40 bg-indigo-50 rounded-full mix-blend-multiply filter blur-3xl opacity-50 transform translate-x-1/2 -translate-y-1/2"></div>
+            
+            <div class="relative z-10">
+                <div class="flex flex-col gap-4">
+                    <label for="userInput" class="font-semibold text-gray-700">คุณต้องการขนส่งอะไร ไปที่ไหน?</label>
+                    <textarea id="userInput" rows="3" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-base rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block p-4 resize-none transition-all shadow-sm" placeholder="ตัวอย่าง: ต้องการส่งอาหารทะเลสดแช่แข็ง มูลค่า 5 แสนบาท จากกรุงเทพไปมาเลเซีย บริษัทไหนดี?"></textarea>
+                    <p id="errorMsg" class="text-red-500 text-sm hidden">กรุณากรอกข้อมูลสินค้าหรือเส้นทางที่คุณต้องการขนส่งก่อนครับ</p>
+                    
+                    <button id="aiButton" onclick="analyzeWithAI()" class="w-full md:w-auto self-end bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-3 px-8 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                        <span>ถาม AI ผู้ช่วย</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                    </button>
+                </div>
+
+                <!-- AI Response Area -->
+                <div id="aiResponseContainer" class="mt-8 hidden border-t border-gray-100 pt-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="bg-indigo-100 p-2 rounded-full text-indigo-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"></path><path d="m14 7 3 3"></path><path d="M5 6v4"></path><path d="M19 14v4"></path><path d="M10 2v2"></path><path d="M7 8H3"></path><path d="M21 16h-4"></path><path d="M11 3H9"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-gray-800">คำแนะนำจาก AI</h3>
+                    </div>
+                    
+                    <div class="bg-indigo-50/50 rounded-xl p-5 border border-indigo-100">
+                        <!-- Loading State -->
+                        <div id="aiLoading" class="flex items-center gap-3 text-indigo-600 font-medium hidden">
+                            <div class="typing-indicator">
+                                <span></span><span></span><span></span>
+                            </div>
+                            กำลังวิเคราะห์ข้อมูล...
+                        </div>
+                        
+                        <!-- Result State -->
+                        <div id="aiResult" class="text-gray-700 text-sm md:text-base leading-relaxed prose prose-indigo max-w-none">
+                            <!-- AI text will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // อย่าลืมใส่ API Key ของคุณตรงนี้เมื่อนำไปใช้งานจริง
+        const apiKey = "AIzaSyBVE9T3SuiVVBoRdY9Po2yuaept-_UlcCQ"; 
+        
+        // ข้อมูลความรู้พื้นฐานให้ AI
+        const systemPrompt = `
+        คุณคือผู้เชี่ยวชาญด้านการประกันภัยสินค้าขนส่ง (Cargo Insurance) ในประเทศไทย 
+        หน้าที่ของคุณคือการให้คำแนะนำว่าลูกค้าควรเลือกบริษัทประกันภัยใดจาก 4 บริษัทนี้ (วิริยะ, กรุงเทพ, เออร์โก, MSIG) 
+        โดยอิงจาก "ข้อมูลเปรียบเทียบ" ด้านล่างนี้เป็นหลัก เพื่อจับคู่กับ "ความต้องการของลูกค้า"
+
+        ข้อมูลเปรียบเทียบ:
+        1. วิริยะ (Viriyah): แบ่งสินค้า 7 กลุ่ม (ครอบคลุมประเภทสินค้ามากที่สุด), ลักทรัพย์(มีร่องรอย)จ่ายตามความเสียหายจริง(ไม่มีเพดาน ดีที่สุด), ขยายอาณาเขตคุ้มครองไปมาเลเซีย(ไม่เกิน 50km) และ ลาว/พม่า/กัมพูชา(ไม่เกิน 20km), คุ้มครองความรับผิดต่อตู้คอนเทนเนอร์ผู้อื่นสูงสุด 100,000 บ. (มีค่าเสียหายส่วนแรก 10-20%)
+        2. กรุงเทพ (Bangkok): แบ่ง 5 กลุ่ม, ลักทรัพย์จ่ายตามจริงสูงสุดไม่เกิน 200,000 บ., ไม่คุ้มครองการขนส่งข้ามแดน, คุ้มครองความรับผิดต่อตู้คอนเทนเนอร์ตามทุนประกัน (20,000 - 50,000 บ.)
+        3. เออร์โก (ERGO): แบ่ง 3 กลุ่ม (เน้นของใช้แล้ว/สินค้าทั่วไป), ลักทรัพย์จ่ายสูงสุด 50,000 บ., ขยายอาณาเขตคุ้มครองกว้างที่สุด (มาเลเซีย/จีน/พม่า/ลาว/กัมพูชา ลึกถึง 100km), คุ้มครองความรับผิดต่อตู้คอนเทนเนอร์ 100,000 บ.
+        4. MSIG: แบ่งเป็นกลุ่มเบ็ดเตล็ด, ลักทรัพย์จ่ายสูงสุด 20,000 - 50,000 บ. (ตามทุนประกัน), ไม่คุ้มครองการขนส่งข้ามแดน
+
+        คำแนะนำการตอบกลับ:
+        1. ตอบเป็นภาษาไทยด้วยน้ำเสียงที่เป็นมิตร เป็นมืออาชีพ
+        2. แนะนำบริษัทที่เหมาะสมที่สุด 1-2 อันดับแรก พร้อมอธิบายเหตุผล
+        3. จัดรูปแบบผลลัพธ์ด้วย HTML พื้นฐานเท่านั้น อนุญาตให้ใช้แท็ก <b>, <br>, <ul>, <li>, <p>
+        `;
+
+        async function fetchWithRetry(url, options, retries = 5, backoff = 1000) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    if (i === retries - 1) throw error;
+                    await new Promise(r => setTimeout(r, backoff));
+                    backoff *= 2; 
+                }
+            }
+        }
+
+        async function analyzeWithAI() {
+            const userInput = document.getElementById('userInput').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+            const aiResponseContainer = document.getElementById('aiResponseContainer');
+            const aiLoading = document.getElementById('aiLoading');
+            const aiResult = document.getElementById('aiResult');
+            const button = document.getElementById('aiButton');
+
+            if (!userInput) {
+                errorMsg.classList.remove('hidden');
+                document.getElementById('userInput').focus();
+                return;
+            }
+            errorMsg.classList.add('hidden');
+
+            button.disabled = true;
+            button.classList.add('opacity-70', 'cursor-not-allowed');
+            aiResponseContainer.classList.remove('hidden');
+            aiLoading.classList.remove('hidden');
+            aiResult.innerHTML = '';
+            aiResult.classList.add('hidden');
+
+            // ตรวจสอบว่าใส่ API Key หรือยัง
+            if (!apiKey || apiKey.trim() === "") {
+                aiLoading.classList.add('hidden');
+                aiResult.innerHTML = '<p class="text-red-500"><b>⚠️ ข้อผิดพลาด:</b> ยังไม่ได้ใส่ API Key ในโค้ดครับ โปรดนำ API Key ของคุณมาใส่ที่ตัวแปร apiKey ก่อนใช้งาน</p>';
+                aiResult.classList.remove('hidden');
+                button.disabled = false;
+                button.classList.remove('opacity-70', 'cursor-not-allowed');
+                return;
+            }
+
+            const url = const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: `ลูกค้าต้องการขนส่ง: "${userInput}" กรุณาแนะนำประกันที่เหมาะสมที่สุด` }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            try {
+                const result = await fetchWithRetry(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                // ดักจับ Error จากฝั่ง Google API
+                if (result.error) {
+                    throw new Error(result.error.message || result.error.status);
+                }
+
+                const aiResponseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                if (aiResponseText) {
+                    aiResult.innerHTML = aiResponseText;
+                } else {
+                    aiResult.innerHTML = '<p class="text-red-500">ขออภัย ไม่สามารถประมวลผลคำแนะนำได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง</p>';
+                }
+
+            } catch (error) {
+                console.error("Gemini API Error:", error);
+                
+                // แจ้งเตือนสาเหตุให้ชัดเจนขึ้น
+                let errorDesc = "โปรดตรวจสอบการตั้งค่า API หรือลองใหม่อีกครั้งในภายหลัง";
+                if (error.message.includes("403") || error.message.includes("API key not valid") || error.message.includes("PERMISSION_DENIED")) {
+                    errorDesc = "ถูกบล็อกการเข้าถึง (อาจเป็นเพราะตั้งค่า Website restrictions ไว้ ให้ทดสอบบนโดเมนที่อนุญาตเท่านั้น หรือ API Key ไม่ถูกต้อง)";
+                }
+                
+                aiResult.innerHTML = `<p class="text-red-500"><b>เกิดข้อผิดพลาดในการเชื่อมต่อ:</b><br>${errorDesc}</p>`;
+            } finally {
+                button.disabled = false;
+                button.classList.remove('opacity-70', 'cursor-not-allowed');
+                aiLoading.classList.add('hidden');
+                aiResult.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
